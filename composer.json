@@ -1,0 +1,13 @@
+{
+    "name": "mapseven/markdown",
+    "type": "typo3-flow-package",
+    "description": "PageDown Integration in TYPO3 Flow",
+    "require": {
+        "typo3/flow": "*"
+    },
+    "autoload": {
+        "psr-0": {
+            "MapSeven\\Markdown": "Classes"
+        }
+    }
+}
