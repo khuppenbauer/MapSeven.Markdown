@@ -13,10 +13,10 @@
             </f:for>
         </div>
     </div>
-    <f:form.textarea property="{property}" id="wmd-input-{property}" rows="{rows}" />
+    <f:form.textarea property="{property}" id="wmd-input-{property}" rows="{rows}" class="{class}" />
 </div>
 <f:if condition="{preview}">
-    <div id="wmd-preview-{property}"></div>
+    <div id="wmd-preview-{property}" class="panel"></div>
 </f:if>
 <script type="text/javascript">
     (function () {

@@ -1,0 +1,13 @@
+page.head {
+	stylesheets.markdown = TYPO3.TypoScript:Template {
+		@position = 'end'
+		templatePath = 'resource://MapSeven.Markdown/Private/Templates/Page/Default.html'
+		sectionName = 'stylesheets'
+	}
+
+	javascripts.markdown = TYPO3.TypoScript:Template {
+		@position = 'end'
+		templatePath = 'resource://MapSeven.Markdown/Private/Templates/Page/Default.html'
+		sectionName = 'scripts'
+	}
+}
