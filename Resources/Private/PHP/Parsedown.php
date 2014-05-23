@@ -48,9 +48,6 @@ class Parsedown
         # trim line breaks
         $markup = trim($markup, "\n");
 
-        # clean up
-        $this->definitions = array();
-
         return $markup;
     }
 
@@ -1174,33 +1171,44 @@ class Parsedown
         }
 
         $url = str_replace(array('&', '<'), array('&amp;', '&lt;'), $Link['url']);
+        if (strpos($url, 'gist.github.com')) {
+			$gistUrl = strpos($url, '?') ? str_replace('?', '.js?', $url) : $url . '.js';
+			$Element = array(
+					'name' => 'script',
+					'handler' => 'line',
+					'text' => '',
+					'attributes' => array(
+							'src' => $gistUrl,
+					),
+			);
+		} else {
+			if ($excerpt[0] === '!')
+			{
+				$Element = array(
+						'name' => 'img',
+						'attributes' => array(
+								'alt' => $Link['text'],
+								'src' => $url,
+						),
+				);
+			}
+			else
+			{
+				$Element = array(
+						'name' => 'a',
+						'handler' => 'line',
+						'text' => $Link['text'],
+						'attributes' => array(
+								'href' => $url,
+						),
+				);
+			}
 
-        if ($excerpt[0] === '!')
-        {
-            $Element = array(
-                'name' => 'img',
-                'attributes' => array(
-                    'alt' => $Link['text'],
-                    'src' => $url,
-                ),
-            );
-        }
-        else
-        {
-            $Element = array(
-                'name' => 'a',
-                'handler' => 'line',
-                'text' => $Link['text'],
-                'attributes' => array(
-                    'href' => $url,
-                ),
-            );
-        }
-
-        if (isset($Link['title']))
-        {
-            $Element['attributes']['title'] = $Link['title'];
-        }
+			if (isset($Link['title']))
+			{
+				$Element['attributes']['title'] = $Link['title'];
+			}
+		}
 
         return array(
             'extent' => $extent,
@@ -1313,7 +1321,7 @@ class Parsedown
     # Fields
     #
 
-    protected $definitions;
+    protected $definitions = array();
 
     #
     # Read-only
@@ -1343,4 +1351,10 @@ class Parsedown
                    'wbr', 'span',
                           'time',
     );
+
+	public function getReferences() {
+		if (isset($this->definitions['Reference'])) {
+			return $this->definitions['Reference'];
+		}
+	}
 }
