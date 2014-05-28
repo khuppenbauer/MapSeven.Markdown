@@ -811,8 +811,6 @@ class Parsedown
     {
         $text = $Block['element']['text']['text'];
 
-        $text = htmlspecialchars($text, ENT_NOQUOTES, 'UTF-8');
-
         $Block['element']['text']['text'] = $text;
 
         return $Block;
